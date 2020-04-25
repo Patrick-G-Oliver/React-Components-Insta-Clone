@@ -7,11 +7,14 @@ import "./Posts.css";
 import dummyData from "../../dummy-data";
 
 const PostsPage = () => {
-  let [posts, setPosts] = useState();
+  // set up state for your data
+  let [posts, setPosts] = useState(dummyData);
   return (
     <div className="posts-container-wrapper">
       {/* map through data here to return a Post and pass data as props to Post */}
-      
+      {dummyData.map( (post) => {
+        return <Post post = {post}/>
+      })}
     </div>
   );
 };
