@@ -1,11 +1,25 @@
 // look at the likes on this component. Right now it is hard coded on line 20.
 // console.log your props and see how to add likes to this component so that it will update when you click the icon.
 // HINT: You will need to add an onClick event pass through your props and update the hard coded Likes
-import React from "react";
+import React, {useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComment, faHeart } from '@fortawesome/free-regular-svg-icons'
-
+// 1) 1st click on heart + 1 like 
+// 2) 2nd click on heart - 1 like 
+// 3) establish setLikes 
 const LikeSection = props => {
+  const [isLiked, setIsLiked] = useState(false)
+
+  const likeToggler = () => {
+    setIsLiked(!isLiked) 
+    if (!isLiked) {
+      props.setLikes(props.likes + 1)
+    }
+    else {
+      props.setLikes(props.likes - 1)
+    }
+  }
+
   console.log(props);
   return (
     <div>
@@ -13,14 +27,14 @@ const LikeSection = props => {
         className="like-section"
         key="likes-icons-container"
       >
-        <div className="like-section-wrapper">
+        <div onClick = {() => likeToggler()} className="like-section-wrapper">
           <FontAwesomeIcon icon={faHeart} />
         </div>
         <div className="like-section-wrapper">
           <FontAwesomeIcon icon={faComment} />
         </div>
       </div>
-      <p className="like-number">373</p>
+      <p className="like-number">{props.likes} likes</p>
     </div>
   )
 };
